@@ -1,12 +1,17 @@
 import asyncio
 import aiohttp
 from openai import OpenAI
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 
-async def data_fetch_from_wether() -> list:
+async def data_fetch_from_weather() -> list:
 
-    api_key = "76ebe517808963e9bcbfd579a75c3568"
+    api_key = os.getenv('WEATHER_API')
 
     lat = 20.82995822420193
     lon = 85.05696466179847
@@ -45,7 +50,7 @@ async def marathon_data() -> str:
 
 async def main():
     result = await asyncio.gather(
-        data_fetch_from_wether(),
+        data_fetch_from_weather(),
         data_fetch_fitness(),
         marathon_data()
     )
@@ -79,7 +84,7 @@ def chat_bot():
 
     client = OpenAI(
         base_url = "https://integrate.api.nvidia.com/v1",
-        api_key = "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",
+        api_key = os.getenv('AI_KEY'),
         timeout=60.0
     )
 
@@ -90,7 +95,35 @@ def chat_bot():
         messages = [
             {
                 "role":"system",
-                "content":"You are the fittnes coach of me You have to give optimal startagy like what to carry what to avoid some tips and tricks and  using my data given, and give the output in ~300 words, "
+                "content":"""You are the fittnes coach of me You have to give optimal startagy like what to carry what to avoid some tips and tricks and  using my data given, and give the output in ~300 words max, 
+                The response contains useful advice, but it needs improvement in both formatting and race strategy quality.
+
+                Formatting Improvements:
+                1. Remove excessive spacing between letters and words. Use normal text formatting.
+                2. Reduce overuse of bold text, capital letters, and separators. Reserve emphasis for critical information only.
+                3. Use a clear heading structure:
+                - Race Overview
+                - Weather Impact
+                - Pre-Race Preparation
+                - Pacing Plan
+                - Heat Management
+                - Post-Race Recovery
+                4. Make the response mobile-friendly with short paragraphs and bullet points.
+                5. Highlight the most important takeaway at the top (for example: "Start 15-20 seconds per km slower than usual due to heat and humidity.").
+
+                Strategy Improvements:
+                1. Add a proper warm-up section (5-10 min easy jog, dynamic mobility, and a few strides).
+                2. Include specific pace guidance in addition to RPE so runners can execute the plan more easily.
+                3. Tone down dramatic statements such as "Survival > PB" and replace them with practical performance guidance.
+                4. Simplify the physiology explanation and focus on actionable advice.
+                5. Make hydration recommendations more realistic for a 5 km race; carrying a flask may not be necessary if aid stations are available.
+                6. Mention race-day decision points, including when to push harder and when to back off because of heat-related symptoms.
+                7. Prioritize evidence-based recovery recommendations (walking, hydration, carbohydrates, protein, cooling down) over less-supported suggestions like compression tights.
+
+                Target Style:
+                Write like an experienced running coach: concise, practical, professional, and easy to follow. Use clean Markdown formatting and focus on actionable race-day instructions rather than dramatic language.
+
+                """
              
             },
             {
