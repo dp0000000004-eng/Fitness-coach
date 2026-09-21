@@ -61,18 +61,23 @@ async def main():
 def join_input():
     merged_data = asyncio.run(main())
 
-    whether_data = "data about current whether and temprature - "
-    for d in merged_data[0]:
-        whether_data += d + "\n"
+    try:
 
-    fitness = merged_data[1]
-    marathon_data = merged_data[2]
+        whether_data = "data about current whether and temprature - "
+        for d in merged_data[0]:
+            whether_data += d + "\n"
 
-    return {
-        "whether_data":whether_data,
-        "data_about_my_fitness":fitness,
-        "marathon_data":marathon_data
-    }
+        fitness = merged_data[1]
+        marathon_data = merged_data[2]
+
+        return {
+            "whether_data":whether_data,
+            "data_about_my_fitness":fitness,
+            "marathon_data":marathon_data
+        }
+    except Exception as e:
+        print(f"The Error is - {type(e).__name__} : {e}")
+        
 
 
 def chat_bot():
