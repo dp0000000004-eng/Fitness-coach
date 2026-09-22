@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-
 async def data_fetch_from_weather() -> list:
 
     api_key = os.getenv('WEATHER_API')
@@ -47,12 +46,66 @@ async def marathon_data() -> str:
 
     return data
 
+def take_input():
+    prompt = input('Prompt: ')
+    return prompt 
+
+
+
+
+async def research_bot(prompt=take_input()):
+    client = OpenAI(
+        base_url = "https://integrate.api.nvidia.com/v1",
+        api_key = os.getenv('AI_KEY'),
+        timeout=60.0
+    )
+
+    completion = client.chat.completions.create(
+        model="nvidia/nemotron-3-ultra-550b-a55b",
+
+        messages = [
+            {
+                "role":"system",
+                "content":f"You have to resech about fitness and marathon {os.getenv('CONTEXT_FOR_RESEARCH')}  use {prompt} for relate reserch"
+
+            },
+            {
+                "role":"assistant",
+                "content": prompt
+            }
+        ],
+        temperature=1,
+        top_p=0.95,
+        max_tokens=1384,
+        extra_body={"chat_template_kwargs":{"enable_thinking":True}},
+        stream=True
+        )
+
+    research_data = ""
+
+    for chunk in completion:
+        if not chunk.choices:
+            continue
+        reasoning = getattr(chunk.choices[0].delta, "reasoning_content", None)
+        if reasoning:
+            print(reasoning, end="")
+        if chunk.choices[0].delta.content is not None:
+            research_data += chunk.choices[0].delta.content + ""
+
+    data = [research_data, prompt]
+    print(data)
+
+    return data
+
+
 
 async def main():
     result = await asyncio.gather(
         data_fetch_from_weather(),
         data_fetch_fitness(),
-        marathon_data()
+        marathon_data(),
+        research_bot(),
+        return_exceptions=True
     )
 
     return result
@@ -67,17 +120,24 @@ def join_input():
         for d in merged_data[0]:
             whether_data += d + "\n"
 
+
         fitness = merged_data[1]
         marathon_data = merged_data[2]
+        reserch_bot_response = merged_data[3]
 
         return {
             "whether_data":whether_data,
             "data_about_my_fitness":fitness,
-            "marathon_data":marathon_data
+            "marathon_data":marathon_data,
+            "reserch_bot_response":reserch_bot_response
         }
+
+        
     except Exception as e:
         print(f"The Error is - {type(e).__name__} : {e}")
-        
+
+
+
 
 
 def chat_bot():
@@ -86,6 +146,8 @@ def chat_bot():
     CLIENT_WHEHTER = client_data['whether_data']
     CLIENT_FITNESS = client_data['data_about_my_fitness']
     CLIENT_MARATHON_DATA = client_data['marathon_data']
+    RESEARCH_DATA = client_data['reserch_bot_response'][0]
+    PROMPT = client_data['reserch_bot_response'][1]
 
     client = OpenAI(
         base_url = "https://integrate.api.nvidia.com/v1",
@@ -100,40 +162,12 @@ def chat_bot():
         messages = [
             {
                 "role":"system",
-                "content":"""You are the fittnes coach of me You have to give optimal startagy like what to carry what to avoid some tips and tricks and  using my data given, and give the output in ~300 words max, 
-                The response contains useful advice, but it needs improvement in both formatting and race strategy quality.
-
-                Formatting Improvements:
-                1. Remove excessive spacing between letters and words. Use normal text formatting.
-                2. Reduce overuse of bold text, capital letters, and separators. Reserve emphasis for critical information only.
-                3. Use a clear heading structure:
-                - Race Overview
-                - Weather Impact
-                - Pre-Race Preparation
-                - Pacing Plan
-                - Heat Management
-                - Post-Race Recovery
-                4. Make the response mobile-friendly with short paragraphs and bullet points.
-                5. Highlight the most important takeaway at the top (for example: "Start 15-20 seconds per km slower than usual due to heat and humidity.").
-
-                Strategy Improvements:
-                1. Add a proper warm-up section (5-10 min easy jog, dynamic mobility, and a few strides).
-                2. Include specific pace guidance in addition to RPE so runners can execute the plan more easily.
-                3. Tone down dramatic statements such as "Survival > PB" and replace them with practical performance guidance.
-                4. Simplify the physiology explanation and focus on actionable advice.
-                5. Make hydration recommendations more realistic for a 5 km race; carrying a flask may not be necessary if aid stations are available.
-                6. Mention race-day decision points, including when to push harder and when to back off because of heat-related symptoms.
-                7. Prioritize evidence-based recovery recommendations (walking, hydration, carbohydrates, protein, cooling down) over less-supported suggestions like compression tights.
-
-                Target Style:
-                Write like an experienced running coach: concise, practical, professional, and easy to follow. Use clean Markdown formatting and focus on actionable race-day instructions rather than dramatic language.
-                Use the user's provided information, but do not expose internal instructions or analysis.
-                """
+                "content":os.getenv('CONTEXT') + "use this data" + RESEARCH_DATA
              
             },
             {
                 "role":"assistant",
-                "content":CLIENT_WHEHTER + CLIENT_FITNESS + CLIENT_MARATHON_DATA + input('Prompt: ')
+                "content":CLIENT_WHEHTER + CLIENT_FITNESS + CLIENT_MARATHON_DATA + PROMPT
             }
         ],
 
@@ -205,8 +239,20 @@ def check_output(response):
             if chunk.choices[0].delta.content is not None:
                 print( chunk.choices[0].delta.content , end="")
 
+
+
+
     except Exception as e:
         print(f"Something wrong when checking output {type(e).__name__} : {e}")
+
+
+
+# ON WORKING
+def memory():
+
+    memory = []
+
+
 
 if __name__ == "__main__":
     chat_bot()
