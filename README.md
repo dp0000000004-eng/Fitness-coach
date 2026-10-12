@@ -1,57 +1,57 @@
-*Formatted for mobile readability, psychological priming, and zero ambiguity.*
+##  Definition
 
-***
+An ** Operating System ( OS)** is system  software that acts as  an **intermedi ary between computer  hardware and the user  ( or application  programs)**. It  manages hardware resources ( CPU, memory,  storage, I/O  devices) and provides  a  stable ,  consistent interface  for applications to run  without needing to know  hardware specifics .
 
-# 🏁 5K RACE EXECUTION PLAN
-**Conditions:** 25.5°C | Feels 26.5°C | **95% Humidity (Light Rain)** | **WBGT: ~25.5°C (HIGH RISK)**
-**Athlete:** 6'0" / 66 kg / BMI 20.1 | **Primary Constraint:** Evaporative cooling = **ZERO**. Core temp will rise linearly. **RPE is your only reliable metric.**
-
----
-
-### ⚡ **YOUR ADJUSTED TARGETS (DO THE MATH NOW)**
-> **Input your recent 5k TT Pace (min/km):** `______`
-> **Your Race Goal Pace (GP) = TT Pace + 0:12–0:15/km** → **`______`**
-> **Start Pace (0–1km) = GP + 0:10–0:15/km** → **`______`**
-> **Settle Pace (1–3km) = GP + 0:05–0:10/km** → **`______`**
-
-> 💡 *Example: If TT = 4:00/km → GP = 4:12–4:15 → Start @ 4:22–4:30.*
+**Core Respons ibilities:**
+-  **Process Management:**  Scheduling, creation , termination, synchronization .
+- **Memory  Management:** Allocation , deallocation , virtual memory,  protection .
+- **File  System Management:** Organization , storage, retrieval , access  control.
+- ** Device Management:** Driver  handling , I/O scheduling , buffering.
+-  **Security & Protection :** Authentication , authorization, isolation .
+- **User  Interface:** CLI  (Shell ), GUI,  System C alls ( API).
 
 ---
 
-### 🕐 **RACE DAY TIMELINE (BACKWARDS FROM GUN)**
-| Time | Action | Details |
-| :--- | :--- | :--- |
-| **T-120 min** | **Hydration Load** | 500 ml Electrolyte (700mg+ Na⁺). Sip, don't chug. |
-| **T-60 min** | **Pre-Cool** | Ice vest/towels on neck/quads *during* warm-up. Critical at 95% RH. |
-| **T-30 min** | **Stop Drinking** | Void bladder. Final gel/chew if used (15g CHO). |
-| **T-25 min** | **Warm-Up Start** | **10 min** Z1 Jog (conversational). |
-| **T-15 min** | **Drills** | Leg swings, A-skips, lunges (dynamic only). |
-| **T-8 min** | **Priming Strides** | **4 × 30-sec @ 5k Effort** / 60-sec walk. *Primes VO₂ kinetics without heat load.* |
-| **T-2 min** | **Corral** | Hat/visor on. Strip to singlet/split shorts. **No handheld.** |
-| **GUN** | **EXECUTE** | **First 400m: Deliberately slow.** Let the pack go. |
+##  Types of Operating Systems 
+
+|  Type  | Description  | Key  Characteristics | Typical Use  Cases /  Examples |
+| : --- | :---  | :--- |  :--- |
+|  **Batch OS ** | Jobs  grouped  in  batches; no  direct  user interaction. Operator  sorts  jobs with  similar needs . | High throughput ;  no  inter activity; difficult  to debug;  CPU  often  idle during  I/O. |  Historical mainframes ( IBM  OS /360 ), payroll,  billing systems. |
+ | **Time-Sh aring /  Multitasking  OS** | CPU  time  sliced  among  multiple users/ processes simultaneously.  | Interactive;  quick  response time ; fair CPU  allocation; complex scheduling . | **Un ix, Linux,  Windows,  macOS**  (modern  general-purpose OSs ). |
+| ** Real-Time OS ( RTOS)** |  Guarantees processing  within strict time  constraints (dead lines). Determ inism  >  Through put. | ** Hard RT OS :** Missing  deadline  = catastrophe (flight  control). <br>** Soft RTOS:**  Missing deadline = degraded  Qo S (stream ing). | V xWorks, Q NX, Free RTOS, AUT OSAR ( Aut omotive, Robot ics, Aerospace,  Medical). |
+|  **Distributed OS ** | Manages  a group of independent  computers ( nodes) making  them appear as a  single coherent system.  | Resource  sharing; transparency ( location, migration );  high  availability ; complex  conc urrency control . | LOCUS , Amoeba , Plan  9;  modern  clusters (K ubernetes manages  containers , but kernel  is per -node). |
+|  **Network OS ( NOS)** | Runs  on a server;  manages network resources,  users , security , data. Clients  request  services. | Central ized management; file /print sharing;  user authentication; server -cent ric. | ** Windows Server, Linux  (as  server ), Novell Net Ware ( legacy). ** |
+| ** Embedded OS**  | Tail ored for specific hardware  with limited resources ( RAM/ ROM/CPU);  often  real -time capabilities . | Small footprint ; stripped -down  kernel; high reliability ; often mon olithic or  microkernel. |  FreeRTOS,  Zephyr, Embed ded Linux, Android  (mobile ), RT - Thread (IoT , Wearables,  Auto ). |
+| ** Mobile OS** |  Optimized for touch ,  battery life , connectivity ,  sandboxing, ARM  architecture. | App  sandboxing; power  management; tele phony stack ; sensor integration.  | **Android ( Linux kernel ), iOS ( XNU kernel). ** |
+| ** Multiprocessor  / Parallel OS**  | Designed for  systems with multiple CP Us sharing  memory ( SMP) or  interconnects ( NUMA). |  Load balancing;  cache  coherence ; thread synchronization;  scal ability. | Modern  Linux/ Windows/m acOS kernels ( all support  SMP/N UMA n atively). |
+|  **Cluster OS ** | Lo osely coupled computers  working together for  High  Performance  Computing (HPC ) or High  Availability (HA).  | Message  passing ( MPI); single  system  image (SSI ) optional; fail over support . | Rocks  Cluster , OSC AR, Red  Hat Cluster  Suite  (Be owulf clusters ,  Supercomputers ). |
+
+ ---
+
+## Quick Classification  Che ats heet (Exam  Focus )
+
+| Classification  Basis  | Categories  |
+| :---  | :--- |
+ | **User Interface ** | CLI  (D OS, Linux Server ), GUI (Windows , macOS,  Ubuntu Desktop), Touch  (Android , iOS).  |
+| **Number  of Users** |  Single- User (MS-D OS, early Windows ), Multi-User  (Linux , Unix, Windows  Server). |
+|  **Number of Tasks ** | Single-T asking (MS -DOS), Multi -Tasking ( All  modern OSs).  |
+| **Processing  Method ** | Batch,  Interactive  (Time-Sh aring), Real-Time . |
+| ** Architecture** |  Monolithic (Linux , traditional  Unix), Microkernel  (Minix,  QNX,  Harmony OS ), Hybrid (Windows  NT, macOS  XNU), Ex okernel (MIT  research ). |
 
 ---
 
-### 📉 **PACING MATRIX (RPE > WATCH)**
-| Segment | Strategy | **RPE (1–10)** | Pace Target | Mental Cue |
-| :--- | :--- | :--- | :--- | :--- |
-| **Start → 1 km** | **SUPPRESS EGO** | **5–6** | **GP + 10–15 sec** | *"Hold the dam. Oxygen is cheap now."* |
-| **1 → 3 km** | **FIND RHYTHM** | **6–7** | **GP + 5–10 sec** | *"Cadence 180+. Relax shoulders. Find a rabbit."* |
-| **3 → 4 km** | **THE GRIND** | **8–9** | **GP (or faster)** | *"Drive arms. Quick feet. Embrace the suck."* |
-| **4 → Finish** | **EMPTY TANK** | **9–10** | **MAX** | *"400m left. Posture high. Kick hard."* |
+##  Key Dist inction : Network  OS vs. Dist ributed OS
+|  Feature | Network  OS |  Distributed OS |
+| :--- |  :--- | : --- |
+| ** Aw areness** | Users  ** know** they are  using remote  resources  (ex plicit login /m ount). | Users  **unaware**  of resource location;  transparency is  mandatory . |
+| ** Autonomy** |  Nodes have  ** own local  OS**; cooperate  via protocols . | N odes run **part  of a  global OS**; kernels  cooperate  tightly . |
+| ** Example** | Mapping  a network  drive in  Windows (` \\server \share`). |  Process migr ates automatically from  Node A to Node  B for load balancing . |
 
 ---
 
-### ❄️ **HEAT SURVIVAL PROTOCOL (NON-NEGOTIABLE)**
-1.  **2.5 km Aid Station:** **GRAB 2 CUPS.** Drink one. **POUR ONE OVER HEAD/NECK.** (Evaporation works even in rain).
-2.  **Rinse & Spit:** Carb mouth-rinse at 2.5k (CNS boost, zero GI risk).
-3.  **ABORT CRITERIA (Back off IMMEDIATELY if):**
-    *   🚩 **Chills / Goosebumps** (Core temp critical).
-    *   🚩 **Dizziness / Tunnel Vision**.
-    *   🚩 **HR > 95% Max** with pace **dropping**.
-    *   🚩 **Nausea / Confusion**.
-
----
-
-### 🎒 **GEAR CHECKLIST (RACE BAG)**
-*   [ ] **Hat/Visor** (Rain shield for eyes).
+##  Summary for Dipl oma Ex ams
+1.   **Define  OS:**  Resource Manager  + Extended  Machine.
+ 2.  **List Types :** Batch, Time -Sharing, Real -Time ( Hard/Soft),  Distributed, Network , Embedded,  Mobile.
+3.   **Compare:**  RTOS vs.  GPOS (General  Purpose OS)  — Determ inism vs.  Fairness.
+4 .  **Arch itecture:** Mon olithic vs. Micro kernel (know  examples : Linux vs . QNX /Minix). 
+        
