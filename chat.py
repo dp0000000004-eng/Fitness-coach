@@ -3,6 +3,7 @@ import aiohttp
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+import datetime
 
 
 load_dotenv()
@@ -54,6 +55,10 @@ def take_input():
 
 
 async def research_bot(prompt=take_input()):
+
+
+    today = datetime.date.today()
+    
     client = OpenAI(
         base_url = "https://integrate.api.nvidia.com/v1",
         api_key = os.getenv('AI_KEY'),
@@ -66,7 +71,7 @@ async def research_bot(prompt=take_input()):
         messages = [
             {
                 "role":"system",
-                "content":f"You have to resech about fitness and marathon {os.getenv('CONTEXT_FOR_RESEARCH')}  use {prompt} for relate reserch"
+                "content":f"You have to resech about fitness and marathon {os.getenv('CONTEXT_FOR_RESEARCH')}  use {prompt} for relate reserch also to day is {today} so use this data"
 
             },
             {
@@ -82,6 +87,7 @@ async def research_bot(prompt=take_input()):
         )
 
     research_data = ""
+
 
     for chunk in completion:
         if not chunk.choices:
@@ -107,7 +113,7 @@ async def main():
         research_bot(),
         return_exceptions=True
     )
-
+    print(result)
     return result
 
     
